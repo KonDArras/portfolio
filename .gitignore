@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.playwright-mcp/
+
+# editor / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# logs
+npm-debug.log*
+*.log
