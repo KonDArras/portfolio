@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { roles, stats, stack, experience, terminalScript, hobbies } from "../data.js";
 import { useTypewriter, useReveal, useScrollSpy, useCountUp, useSpotlight, useSequentialTyping } from "../hooks.js";
 import Portrait from "../components/Portrait.jsx";
@@ -193,78 +192,71 @@ function Stack() {
 // stage 0 here is the oldest role.
 const PIPELINE_STAGES_OLDEST_FIRST = [...experience].reverse().map((e) => e.role);
 
-function PipelineEntry({ entry, defaultOpen, status, typingText }) {
-  const [open, setOpen] = useState(defaultOpen);
-  const started = status !== "pending";
+function PipelineRecord({ entry }) {
+  return (
+    <div className="pipeline-record">
+      <div className="terminal-cmd">
+        <span className="terminal-prompt">$</span> {entry.role} —{" "}
+        {entry.linkedin ? (
+          <a href={entry.linkedin} target="_blank" rel="noopener">
+            {entry.company}
+          </a>
+        ) : (
+          entry.company
+        )}
+      </div>
+      <div className="pipeline-meta">
+        {entry.dates}
+        {entry.place ? ` · ${entry.place}` : ""}
+      </div>
+      {entry.bullets.map((b) => (
+        <div className="pipeline-bullet" key={b}>
+          {b}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// An "upside-down" terminal: each new line types in at the top, and
+// everything already written is pushed further down — the opposite of a
+// normal shell, where new output appends at the bottom.
+function PipelineTerminal() {
+  const [ref, visible] = useReveal();
+  const { shownCount, typing } = useSequentialTyping(PIPELINE_STAGES_OLDEST_FIRST, visible);
+  const last = experience.length - 1;
+  const isTyping = shownCount < experience.length;
+  const landed = experience.filter((_, i) => last - i < shownCount);
 
   return (
-    <li className={started ? "is-lit" : ""}>
-      <div className={`node ${entry.live ? "node-live" : ""}`} />
-      <div className={`accordion ${started ? "is-open" : ""}`}>
-        <div className="entry">
-          {status === "typing" ? (
-            <p className="stage-typing">
-              <span className="terminal-prompt">$</span> {typingText}
-              <span className="terminal-caret" />
-            </p>
-          ) : (
-            <>
-              <button className="entry-head" onClick={() => setOpen((o) => !o)} aria-expanded={open}>
-                <h3>{entry.role}</h3>
-                <span className="dates">{entry.dates}</span>
-                <span className="chevron" aria-hidden="true">
-                  {open ? "−" : "+"}
-                </span>
-              </button>
-              <p className="entry-company">
-                {entry.linkedin ? (
-                  <a href={entry.linkedin} target="_blank" rel="noopener">
-                    {entry.company}
-                  </a>
-                ) : (
-                  entry.company
-                )}
-              </p>
-              {entry.place && <p className="place">{entry.place}</p>}
-              <div className={`accordion ${open ? "is-open" : ""}`}>
-                <ul className="entry-body">
-                  {entry.bullets.map((b) => (
-                    <li key={b}>{b}</li>
-                  ))}
-                </ul>
-              </div>
-            </>
-          )}
-        </div>
+    <div className="terminal pipeline-terminal" ref={ref}>
+      <div className="terminal-bar">
+        <span className="terminal-dot terminal-dot-r" />
+        <span className="terminal-dot terminal-dot-y" />
+        <span className="terminal-dot terminal-dot-g" />
+        <span className="terminal-title">christos@career ~ history.log</span>
       </div>
-    </li>
+      <div className="terminal-body">
+        {isTyping && (
+          <div className="terminal-cmd">
+            <span className="terminal-prompt">$</span> {typing}
+            <span className="terminal-caret" />
+          </div>
+        )}
+        {landed.map((entry) => (
+          <PipelineRecord key={entry.company} entry={entry} />
+        ))}
+      </div>
+    </div>
   );
 }
 
 function Pipeline() {
-  const [ref, visible] = useReveal();
-  const { shownCount, typing } = useSequentialTyping(PIPELINE_STAGES_OLDEST_FIRST, visible);
-  const last = experience.length - 1;
-
   return (
     <section className="section" id="experience" aria-labelledby="exp-h">
       <h2 id="exp-h">Pipeline</h2>
-      <p className="page-intro">Runs oldest to newest — the top stage is where things stand today.</p>
-      <ol className="pipeline" ref={ref}>
-        {experience.map((entry, i) => {
-          const reverseIndex = last - i; // 0 = oldest
-          const status = reverseIndex < shownCount ? "done" : reverseIndex === shownCount ? "typing" : "pending";
-          return (
-            <PipelineEntry
-              key={entry.company}
-              entry={entry}
-              defaultOpen={i < 2}
-              status={status}
-              typingText={typing}
-            />
-          );
-        })}
-      </ol>
+      <p className="page-intro">Runs oldest to newest — the top line is where things stand today.</p>
+      <PipelineTerminal />
     </section>
   );
 }

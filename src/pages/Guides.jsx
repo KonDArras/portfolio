@@ -4,8 +4,7 @@ import { useSpotlight, useReveal } from "../hooks.js";
 
 const ALL_TAGS = [...new Set(guides.flatMap((g) => g.tags))];
 
-function GuideCard({ guide, defaultOpen, index }) {
-  const [open, setOpen] = useState(defaultOpen);
+function GuideCard({ guide, index }) {
   const spotlight = useSpotlight();
   const [ref, visible] = useReveal();
 
@@ -16,29 +15,22 @@ function GuideCard({ guide, defaultOpen, index }) {
       style={{ "--i": index }}
       {...spotlight}
     >
-      <button className="entry-head" onClick={() => setOpen((o) => !o)} aria-expanded={open}>
-        <h3>{guide.title}</h3>
-        <span className="chevron" aria-hidden="true">
-          {open ? "−" : "+"}
-        </span>
-      </button>
+      <h3>{guide.title}</h3>
       <ul className="tags">
         {guide.tags.map((t) => (
           <li key={t}>{t}</li>
         ))}
       </ul>
-      <div className={`accordion ${open ? "is-open" : ""}`}>
-        <ul className="guide-body">
-          {guide.body.map((line) => {
-            const [lead, ...rest] = line.split(" ");
-            return (
-              <li key={line}>
-                <span className="tip-lead">{lead}</span> {rest.join(" ")}
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      <ul className="guide-body">
+        {guide.body.map((line) => {
+          const [lead, ...rest] = line.split(" ");
+          return (
+            <li key={line}>
+              <span className="tip-lead">{lead}</span> {rest.join(" ")}
+            </li>
+          );
+        })}
+      </ul>
     </article>
   );
 }
@@ -65,7 +57,7 @@ export default function Guides() {
 
       <div className="guide-list">
         {visible.map((g, i) => (
-          <GuideCard key={g.title} guide={g} defaultOpen={i === 0} index={i} />
+          <GuideCard key={g.title} guide={g} index={i} />
         ))}
       </div>
     </section>

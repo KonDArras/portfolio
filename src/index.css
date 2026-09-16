@@ -743,43 +743,6 @@ button:focus-visible {
   }
 }
 
-/* Pipeline / experience timeline */
-.pipeline {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  position: relative;
-}
-.pipeline li {
-  position: relative;
-  padding-left: 32px;
-  padding-bottom: 36px;
-}
-.pipeline li:last-child {
-  padding-bottom: 0;
-}
-.pipeline li::before {
-  content: "";
-  position: absolute;
-  left: 5px;
-  top: 14px;
-  bottom: -36px;
-  width: 1px;
-  background: var(--line);
-  opacity: 0.4;
-  transition: background 0.4s ease, opacity 0.4s ease;
-}
-.pipeline li:last-child::before {
-  display: none;
-}
-/* Runs oldest (bottom) to newest (top): a stage lights up once its line has
-   started typing (see .stage-typing / useSequentialTyping), and each newly
-   typed stage's growing content pushes the already-shown ones below it
-   further down the page — a real reflow, not a fake slide. */
-.pipeline li.is-lit::before {
-  background: var(--live);
-  opacity: 1;
-}
 .node {
   position: absolute;
   left: 0;
@@ -789,87 +752,48 @@ button:focus-visible {
   border-radius: 50%;
   background: var(--bg);
   border: 2px solid var(--line);
-  transition: border-color 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
-}
-.pipeline li.is-lit .node {
-  border-color: var(--live);
-}
-.pipeline li.is-lit .node-live {
-  background: var(--live);
-  box-shadow: 0 0 0 4px rgba(70, 234, 184, 0.18);
 }
 
-.stage-typing {
-  margin: 0;
-  padding-top: 2px;
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 0.95rem;
-  color: var(--text);
-}
-
-.entry-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 6px 16px;
-  width: 100%;
-  background: none;
-  border: none;
-  padding: 0;
-  margin-bottom: 4px;
-  color: inherit;
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
-}
-.entry h3 {
-  font-size: 1.05rem;
-  margin: 0;
-}
 .dates {
   font-family: "IBM Plex Mono", monospace;
   font-size: 0.78rem;
   color: var(--text-dim);
-}
-.chevron {
-  margin-left: auto;
-  font-family: "IBM Plex Mono", monospace;
-  color: var(--text-dim);
-  width: 1.2em;
-  text-align: center;
-}
-.entry-head:hover .chevron {
-  color: var(--live);
-}
-.entry-company {
-  font-size: 0.95rem;
-  color: var(--text-dim);
-  margin: 2px 0 0;
-}
-.entry-company a {
-  color: var(--text-dim);
-  text-decoration: none;
-  border-bottom: 1px solid var(--line);
-}
-.entry-company a:hover {
-  color: var(--live);
-  border-bottom-color: var(--live);
 }
 .place {
   color: var(--text-dim);
   font-size: 0.85rem;
   margin: 4px 0 12px;
 }
-.entry-body {
-  margin: 0;
-  padding: 12px 0 0 20px;
-  color: var(--text-dim);
-  overflow: hidden;
-  min-height: 0;
+
+/* Pipeline: an "upside-down" terminal — see PipelineTerminal in Home.jsx.
+   Each record types in at the top and pushes earlier ones down. */
+.pipeline-terminal .terminal-body {
+  height: auto;
+  overflow-y: visible;
 }
-.entry-body li {
-  margin-bottom: 6px;
-  font-size: 0.93rem;
+.pipeline-record + .pipeline-record {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--line);
+}
+.terminal-cmd + .pipeline-record {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--line);
+}
+.pipeline-meta {
+  color: var(--text-dim);
+  padding-left: 1.4em;
+  font-size: 0.82rem;
+}
+.pipeline-bullet {
+  color: var(--text-dim);
+  padding-left: 1.4em;
+  font-size: 0.85rem;
+}
+.pipeline-bullet::before {
+  content: "- ";
+  color: var(--signal);
 }
 
 .page-section {
@@ -991,29 +915,16 @@ button:focus-visible {
 .guide-list .panel {
   padding: 22px 24px;
 }
-.guide-list .entry-head h3 {
+.guide-list h3 {
   font-size: 1.05rem;
 }
 .guide-list .tags {
   margin-top: 10px;
 }
-
-/* Height-animated accordion via the 0fr/1fr grid-rows trick — no JS
-   measuring of scrollHeight needed. */
-.accordion {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.35s ease;
-}
-.accordion.is-open {
-  grid-template-rows: 1fr;
-}
 .guide-body {
-  margin: 0;
-  padding: 16px 0 0 20px;
+  margin: 16px 0 0;
+  padding: 0 0 0 20px;
   color: var(--text-dim);
-  overflow: hidden;
-  min-height: 0;
 }
 .guide-body li {
   margin-bottom: 8px;
