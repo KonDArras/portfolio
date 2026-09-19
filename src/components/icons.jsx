@@ -36,3 +36,12 @@ export function IconMug() {
     </svg>
   );
 }
+
+export function IconWave() {
+  return (
+    <svg {...common} aria-hidden="true">
+      <path d="M2 9 q2 -3 4 0 t4 0 t4 0 t4 0" />
+      <path d="M2 14 q2 -3 4 0 t4 0 t4 0 t4 0" />
+    </svg>
+  );
+}

@@ -32,9 +32,13 @@ export const terminalScript = [
 
 export const roles = [
   "DevOps & Cloud Engineer",
+  "Tree Hugger",
   "AWS builder",
+  "Triathlete",
   "Infrastructure automator",
+  "Dungeon Master",
   "Security-minded engineer",
+  "Beer Brewer",
 ];
 
 export const stats = [
@@ -47,6 +51,7 @@ export const hobbies = [
   { name: "Triathlon", icon: "stopwatch" },
   { name: "Dungeons & Dragons", icon: "dice" },
   { name: "Beer making", icon: "mug" },
+  { name: "Freediving", icon: "wave" },
 ];
 
 export const stack = [

@@ -2,9 +2,9 @@ import { roles, stats, stack, experience, terminalScript, hobbies } from "../dat
 import { useTypewriter, useReveal, useScrollSpy, useCountUp, useSpotlight, useSequentialTyping } from "../hooks.js";
 import Portrait from "../components/Portrait.jsx";
 import Terminal from "../components/Terminal.jsx";
-import { IconMountain, IconStopwatch, IconDice, IconMug } from "../components/icons.jsx";
+import { IconMountain, IconStopwatch, IconDice, IconMug, IconWave } from "../components/icons.jsx";
 
-const HOBBY_ICONS = { mountain: IconMountain, stopwatch: IconStopwatch, dice: IconDice, mug: IconMug };
+const HOBBY_ICONS = { mountain: IconMountain, stopwatch: IconStopwatch, dice: IconDice, mug: IconMug, wave: IconWave };
 
 const SECTIONS = [
   { id: "top", label: "Start" },
