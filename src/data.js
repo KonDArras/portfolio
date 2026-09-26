@@ -38,11 +38,11 @@ export const roles = [
   "Infrastructure automator",
   "Dungeon Master",
   "Security-minded engineer",
-  "Beer Brewer",
+  "Aspiring Homesteader",
 ];
 
 export const stats = [
-  { value: 4, suffix: "+", label: "years in cloud & security" },
+  { value: 6, suffix: "+", label: "years in cloud & security" },
   { value: 6, suffix: "", label: "certifications" },
 ];
 
@@ -186,6 +186,7 @@ export const experience = [
   },
   {
     company: "Alphaomegazed Ltd.",
+    linkedin: "https://www.linkedin.com/company/alphaomegazed",
     role: "IT & Security Engineer",
     dates: "Mar 2022 — Aug 2022",
     place: "",
@@ -196,7 +197,7 @@ export const experience = [
     ],
   },
   {
-    company: "Computer Science Department, Army",
+    company: "Computer Science Department, Greek Army",
     role: "IT Manager — Lieutenant",
     dates: "Nov 2020 — Jan 2022",
     place: "",
