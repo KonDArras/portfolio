@@ -179,6 +179,15 @@ button:focus-visible {
 }
 .side-label.is-left {
   left: 20px;
+  /* Bottom-anchored so it never runs under the vertically centred rail nav */
+  top: auto;
+  bottom: 32px;
+  transform: none;
+}
+@media (max-height: 960px) {
+  .side-label.is-left {
+    display: none;
+  }
 }
 .side-label.is-right {
   right: 20px;
