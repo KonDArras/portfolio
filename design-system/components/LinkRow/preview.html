@@ -1,0 +1,12 @@
+<!-- @dsCard group="Actions" height=80 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>LinkRow — preview</title><style>body{padding:20px}</style></head>
+<body>
+<div id="root"></div>
+<script>
+  var S = window.Schematic, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(h(S.LinkRow,{links:[{label:'LinkedIn',href:'#'},{label:'Email',href:'#'},{label:'Download CV',href:'#',primary:true}]}));
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<!-- @dsCard group="Status" height=90 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>StatusDot — preview</title><style>body{padding:20px}</style></head>
+<body>
+<div id="root"></div>
+<script>
+  var S = window.Schematic, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(h('div',{style:{display:'grid',gap:'10px'}},h(S.StatusDot,{live:true},'All systems operational — 4 services monitored'),h(S.StatusDot,null,'Idle')));
+</script>
+</body>
+</html>

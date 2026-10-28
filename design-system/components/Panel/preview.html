@@ -1,0 +1,12 @@
+<!-- @dsCard group="Surfaces" height=230 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Panel — preview</title><style>body{padding:20px}</style></head>
+<body>
+<div id="root"></div>
+<script>
+  var S = window.Schematic, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(h(S.Panel.Grid,{columns:2},h(S.Panel,{title:'MSc Computer Engineering'},h('p',{style:{margin:0,color:'var(--text-dim)'}},'University of Patras, Greece')),h(S.Panel,{title:'E-commerce & sales'},h('p',{style:{margin:0,color:'var(--text-dim)'}},'Operations, online sales, and technical support (2017–2020)'))));
+</script>
+</body>
+</html>

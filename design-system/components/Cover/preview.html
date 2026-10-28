@@ -1,0 +1,45 @@
+<!-- @dsCard height=288 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Cover</title>
+<style>
+  html, body { margin: 0; background: var(--bg); }
+  .cover { position: relative; width: 960px; height: 288px; overflow: hidden; background: var(--bg); }
+  svg { position: absolute; left: 0; top: 0; }
+  .live { fill: var(--live); } .signal { fill: var(--signal); } .amber { fill: var(--amber); } .line { fill: var(--line); }
+  .plus { stroke: var(--line); stroke-width: 1px; }
+  .tick { fill: none; stroke: var(--live); stroke-width: 2px; }
+  .text { position: absolute; left: 40px; bottom: 40px; max-width: 440px; }
+  h1 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 80px; line-height: .95; letter-spacing: -0.02em; color: var(--text); }
+  p { margin: 12px 0 0; font-family: var(--font-mono); font-size: 13px; color: var(--text-dim); }
+</style></head>
+<body>
+<div class="cover">
+  <!-- blocks: live 144×192 (3×4 of space-48), signal 144×96, line 96×96, amber 48×48; radius-none throughout
+       arrangement: a tall live slab bleeding off the top, signal bleeding off the right, staggered like rack units
+       pattern: plus grid at space-48 — "a fixed 48px line grid behind everything" (README, Layout): precise, technical, mono
+       steps: space-48 pitch and block sides; radius-none; ticks echo the portrait's live corner ticks at 22px -->
+  <svg width="960" height="288" viewBox="0 0 960 288" aria-hidden="true">
+    <g class="plus" id="grid"></g>
+    <rect class="line" x="528" y="144" width="96" height="96"/>
+    <rect class="live" x="672" y="0" width="144" height="192"/>
+    <rect class="signal" x="816" y="96" width="144" height="96"/>
+    <rect class="amber" x="816" y="192" width="48" height="48"/>
+    <path class="tick" d="M520 158 V136 H542"/>
+    <path class="tick" d="M632 226 V248 H610"/>
+  </svg>
+  <div class="text">
+    <h1>Schematic</h1>
+    <p>Infrastructure, drawn as a portfolio.</p>
+  </div>
+</div>
+<script>
+  var g = document.getElementById('grid'), ns = 'http://www.w3.org/2000/svg';
+  for (var x = 528; x <= 912; x += 48) for (var y = 48; y <= 240; y += 48) {
+    var p = document.createElementNS(ns, 'path');
+    p.setAttribute('d', 'M' + (x - 5) + ' ' + y + 'h10M' + x + ' ' + (y - 5) + 'v10');
+    g.appendChild(p);
+  }
+</script>
+</body>
+</html>
