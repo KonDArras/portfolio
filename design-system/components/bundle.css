@@ -6,8 +6,8 @@ a { color: var(--live); }
 a:focus-visible, button:focus-visible { outline: 2px solid var(--live); outline-offset: 3px; }
 
 /* Panel + spotlight */
-.panel { background: var(--panel-glass); backdrop-filter: blur(16px) saturate(160%); -webkit-backdrop-filter: blur(16px) saturate(160%); padding: 26px; border: 1px solid var(--glass-edge); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05); }
-.panel h3 { margin: 0 0 16px; font-size: 1rem; font-weight: 600; }
+.panel { background: linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent 120px), linear-gradient(var(--panel-glass), var(--panel-glass)), var(--bg); padding: 32px; border: 1px solid var(--glass-edge); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05); }
+.panel h3 { margin: 0 0 16px; font-size: 1.1rem; font-weight: 600; letter-spacing: -0.01em; }
 .panel-grid { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); }
 .spotlight { position: relative; isolation: isolate; transition: border-color 0.2s; }
 .spotlight::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: 0; background: radial-gradient(180px circle at var(--sx, 50%) var(--sy, 50%), var(--live-tint), transparent 70%); transition: opacity 0.3s; pointer-events: none; }
@@ -16,11 +16,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--live); outline-
 
 /* Tags */
 .tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-.tags li { font-family: "IBM Plex Mono", monospace; font-size: 0.72rem; color: var(--text-dim); border: 1px solid var(--line); padding: 3px 8px; }
+.tags li { font-family: "IBM Plex Mono", monospace; font-size: 0.72rem; color: var(--text-dim); border: 1px solid var(--line-strong); padding: 3px 8px; }
 
 /* Filter pill */
 .filter-row { display: flex; flex-wrap: wrap; gap: 8px; }
-.filter-pill { font-family: "IBM Plex Mono", monospace; font-size: 0.78rem; color: var(--text-dim); background: transparent; border: 1px solid var(--line); padding: 6px 14px; cursor: pointer; transition: color 0.2s, border-color 0.2s, background 0.2s; }
+.filter-pill { font-family: "IBM Plex Mono", monospace; font-size: 0.78rem; color: var(--text-dim); background: transparent; border: 1px solid var(--line-strong); padding: 6px 14px; cursor: pointer; transition: color 0.2s, border-color 0.2s, background 0.2s; }
 .filter-pill:hover { color: var(--text); border-color: var(--signal); }
 .filter-pill.is-active { color: var(--bg); background: var(--live); border-color: var(--live); }
 
@@ -53,7 +53,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--live); outline-
 
 /* Top nav */
 .topnav { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; padding: 20px 40px; background: var(--nav-glass); backdrop-filter: blur(14px) saturate(160%); -webkit-backdrop-filter: blur(14px) saturate(160%); border-bottom: 1px solid var(--line); }
-.topnav-mark { font-family: "IBM Plex Mono", monospace; font-size: 0.85rem; color: var(--text); text-decoration: none; border: 1px solid var(--line); border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; }
+.topnav-mark { font-family: "IBM Plex Mono", monospace; font-size: 0.85rem; color: var(--text); text-decoration: none; border: 1px solid var(--line-strong); border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; }
 .topnav-mark:hover { border-color: var(--live); color: var(--live); }
 .topnav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 28px; }
 .topnav nav a { position: relative; font-family: "IBM Plex Mono", monospace; font-size: 0.85rem; color: var(--text-dim); text-decoration: none; padding-bottom: 3px; }
@@ -81,7 +81,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--live); outline-
 
 /* Hobby chip */
 .hobbies { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
-.hobby-chip { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border: 1px solid var(--line); background: var(--panel-glass); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); color: var(--text-dim); font-size: 0.88rem; transition: color 0.2s, transform 0.2s, border-color 0.2s; }
+.hobby-chip { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border: 1px solid var(--line-strong); background: var(--panel-glass); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); color: var(--text-dim); font-size: 0.88rem; transition: color 0.2s, transform 0.2s, border-color 0.2s; }
 .hobby-chip:hover { color: var(--text); border-color: var(--live); transform: translateY(-2px); }
 .hobby-chip img, .hobby-chip svg { flex: none; width: 20px; height: 20px; color: var(--live); }
 
@@ -92,5 +92,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--live); outline-
 .node { width: 11px; height: 11px; border-radius: 50%; background: var(--bg); border: 2px solid var(--live); margin: 0 auto 16px; }
 
 /* Section heading */
-.section-head h2 { font-family: "IBM Plex Mono", monospace; font-weight: 500; font-size: 1.05rem; color: var(--signal); margin: 0 0 28px; }
-.section-head .page-intro { color: var(--text-dim); max-width: 60ch; margin: -12px 0 0; }
+.section-head h2 { display: flex; align-items: center; gap: 14px; font-family: "IBM Plex Mono", monospace; font-weight: 500; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--signal); margin: 0 0 20px; }
+.section-head h2 .num { color: var(--text-dim); }
+.section-head h2::after { content: ""; flex: 1; max-width: 120px; height: 1px; background: var(--line-strong); }
+.section-head .page-intro { color: var(--text); font-size: 1.75rem; font-weight: 500; line-height: 1.25; letter-spacing: -0.015em; max-width: 30ch; margin: 0; }

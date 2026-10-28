@@ -1,8 +1,9 @@
 :root {
   --bg: #0a120e;
   --panel: #142219;
-  --panel-glass: rgba(20, 34, 25, 0.55);
+  --panel-glass: rgba(14, 24, 18, 0.72);
   --line: #3b5a45;
+  --line-strong: #4f7a5c;
   --text: #f4f1e6;
   --text-dim: #b3bfa8;
   --live: #8fdc6e;
@@ -209,7 +210,7 @@ button:focus-visible {
   font-size: 0.85rem;
   color: var(--text);
   text-decoration: none;
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-strong);
   border-radius: 50%;
   width: 30px;
   height: 30px;
@@ -342,8 +343,21 @@ button:focus-visible {
 
 /* Hero */
 .hero {
-  padding: 64px 0 48px;
+  position: relative;
+  padding: 96px 0 72px;
   border-bottom: 1px solid var(--line);
+}
+/* Low green glow behind the name: lights the hero without a gradient fill */
+.hero::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -120px;
+  left: -160px;
+  width: min(720px, calc(100% + 160px));
+  height: 520px;
+  background: radial-gradient(closest-side, rgba(143, 220, 110, 0.09), transparent);
+  pointer-events: none;
 }
 .hero-top {
   display: flex;
@@ -352,10 +366,24 @@ button:focus-visible {
   gap: 48px;
 }
 .kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   font-family: "IBM Plex Mono", monospace;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
   color: var(--text-dim);
-  margin: 0 0 20px;
+  border: 1px solid var(--line-strong);
+  background: var(--panel-glass);
+  padding: 6px 12px;
+  margin: 0 0 28px;
+}
+.kicker::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--live);
 }
 
 @keyframes ring-pulse {
@@ -376,7 +404,7 @@ button:focus-visible {
   height: 384px;
   border-radius: 50%;
   overflow: hidden;
-  border: 2px solid var(--line);
+  border: 2px solid var(--line-strong);
   background: var(--panel);
   transition: transform 0.15s ease-out;
   transform-style: preserve-3d;
@@ -442,10 +470,11 @@ button:focus-visible {
 }
 
 .hero h1 {
-  font-size: clamp(3rem, 6.5vw, 5rem);
+  font-size: clamp(3.2rem, 7vw, 5.6rem);
   font-weight: 700;
-  letter-spacing: -0.02em;
-  margin: 0 0 12px;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  margin: 0 0 24px;
 }
 .role {
   font-size: 1.5rem;
@@ -471,9 +500,10 @@ button:focus-visible {
 }
 .summary {
   color: var(--text-dim);
-  font-size: 1.05rem;
-  max-width: 64ch;
-  margin: 0 0 32px;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  max-width: 58ch;
+  margin: 8px 0 32px;
 }
 
 .status {
@@ -487,10 +517,14 @@ button:focus-visible {
   gap: 10px;
 }
 .status li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  position: relative;
+  padding-left: 18px;
   color: var(--text-dim);
+}
+.status li .dot {
+  position: absolute;
+  left: 0;
+  top: 0.6em;
 }
 .status a {
   color: var(--text-dim);
@@ -551,7 +585,7 @@ button:focus-visible {
   border: 1px solid var(--live);
   background: rgba(143, 220, 110, 0.1);
   color: var(--live);
-  padding: 8px 16px;
+  padding: 10px 20px;
   transition: background 0.2s, color 0.2s;
 }
 .links a.cv-download:hover {
@@ -561,8 +595,10 @@ button:focus-visible {
 
 .stats {
   display: flex;
-  gap: 40px;
+  gap: 56px;
   flex-wrap: wrap;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
 }
 .stat {
   display: flex;
@@ -570,8 +606,9 @@ button:focus-visible {
 }
 .stat-value {
   font-family: "IBM Plex Mono", monospace;
-  font-size: 2.6rem;
+  font-size: 3rem;
   font-weight: 500;
+  line-height: 1.2;
   color: var(--live);
   transition: text-shadow 0.4s;
 }
@@ -586,15 +623,57 @@ button:focus-visible {
 
 /* Sections */
 .section {
-  padding: 72px 0;
+  padding: 104px 0;
   border-bottom: 1px solid var(--line);
 }
+main {
+  counter-reset: section;
+}
 .section h2 {
+  display: flex;
+  align-items: center;
+  gap: 14px;
   font-family: "IBM Plex Mono", monospace;
   font-weight: 500;
-  font-size: 1.05rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--signal);
-  margin: 0 0 28px;
+  margin: 0 0 20px;
+}
+main .section h2::before {
+  counter-increment: section;
+  content: counter(section, decimal-leading-zero);
+  color: var(--text-dim);
+}
+.section h2::after {
+  content: "";
+  flex: 1;
+  max-width: 120px;
+  height: 1px;
+  background: var(--line-strong);
+}
+/* The one-line intro under each heading is the section's real headline */
+.section .page-intro {
+  color: var(--text);
+  font-size: 1.75rem;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  max-width: 30ch;
+  margin: 0 0 48px;
+}
+.section .page-intro.monitor-summary {
+  display: inline-flex;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--text-dim);
+  border: 1px solid var(--line-strong);
+  background: var(--panel-glass);
+  padding: 8px 14px;
+  max-width: none;
+  margin-bottom: 32px;
 }
 
 .reveal {
@@ -620,28 +699,25 @@ button:focus-visible {
    unstyled track for the 4th panel. */
 .panels {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1px;
   background: var(--line);
   border: 1px solid var(--line);
 }
-@media (min-width: 900px) {
-  .panels {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
 .panel {
-  background: var(--panel-glass);
-  backdrop-filter: blur(16px) saturate(160%);
-  -webkit-backdrop-filter: blur(16px) saturate(160%);
-  padding: 26px;
+  /* Opaque: panels sit in grids whose --line background forms the 1px
+     dividers, and a translucent fill lets that green bleed through. */
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent 120px),
+    linear-gradient(var(--panel-glass), var(--panel-glass)), var(--bg);
+  padding: 32px;
   border: 1px solid rgba(255, 255, 255, 0.07);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 .panel h3 {
   margin: 0 0 16px;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 /* Stack section styled as a server-monitoring dashboard */
@@ -676,7 +752,7 @@ button:focus-visible {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
 }
 .skill-row-head {
   display: flex;
@@ -798,11 +874,29 @@ button:focus-visible {
 
 .page-section {
   border-bottom: none;
+  padding-top: 88px;
 }
-.page-intro {
+.page-section h2 {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-size: clamp(2.6rem, 5vw, 3.8rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  text-transform: none;
+  color: var(--text);
+  margin: 0 0 20px;
+}
+.page-section h2::after {
+  display: none;
+}
+.section.page-section .page-intro {
   color: var(--text-dim);
-  max-width: 60ch;
-  margin: -12px 0 32px;
+  font-size: 1.15rem;
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: 0;
+  max-width: 52ch;
+  margin: 0 0 48px;
 }
 
 /* Projects */
@@ -814,7 +908,7 @@ button:focus-visible {
   border: 1px solid var(--line);
 }
 .project-grid .panel {
-  padding: 22px 24px;
+  padding: 28px 32px;
 }
 .project-head {
   display: flex;
@@ -846,7 +940,7 @@ button:focus-visible {
   font-family: "IBM Plex Mono", monospace;
   font-size: 0.72rem;
   color: var(--text-dim);
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-strong);
   padding: 3px 8px;
 }
 .project-note {
@@ -890,7 +984,7 @@ button:focus-visible {
   font-size: 0.78rem;
   color: var(--text-dim);
   background: transparent;
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-strong);
   padding: 6px 14px;
   cursor: pointer;
   transition: color 0.2s, border-color 0.2s, background 0.2s;
@@ -913,10 +1007,11 @@ button:focus-visible {
   border: 1px solid var(--line);
 }
 .guide-list .panel {
-  padding: 22px 24px;
+  padding: 28px 32px;
 }
 .guide-list h3 {
-  font-size: 1.05rem;
+  font-size: 1.25rem;
+  margin-bottom: 12px;
 }
 .guide-list .tags {
   margin-top: 10px;
@@ -938,7 +1033,7 @@ button:focus-visible {
 
 .about-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1px;
   background: var(--line);
   border: 1px solid var(--line);
@@ -949,7 +1044,7 @@ button:focus-visible {
   font-family: "IBM Plex Mono", monospace;
   font-size: 0.7rem;
   color: var(--signal);
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-strong);
   padding: 3px 8px;
   margin-bottom: 14px;
 }
@@ -979,7 +1074,7 @@ button:focus-visible {
   align-items: center;
   gap: 8px;
   padding: 10px 16px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-strong);
   background: var(--panel-glass);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -1001,9 +1096,12 @@ button:focus-visible {
 .footer {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 32px 40px 56px 190px;
+  padding: 40px 40px 64px 190px;
 }
 .footer p {
+  overflow-wrap: anywhere;
+  margin: 0;
+  line-height: 2;
   color: var(--text-dim);
   font-size: 0.85rem;
   font-family: "IBM Plex Mono", monospace;
@@ -1015,12 +1113,27 @@ button:focus-visible {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 760px) {
   .panels {
     grid-template-columns: 1fr;
   }
+  .section {
+    padding: 72px 0;
+  }
+  .section .page-intro {
+    font-size: 1.4rem;
+  }
+  .panel {
+    padding: 24px;
+  }
+}
+@media (max-width: 600px) {
   .hero {
-    padding: 64px 0 40px;
+    padding: 48px 0 48px;
+  }
+  .terminal-body {
+    padding: 18px;
+    font-size: 0.78rem;
   }
   .stats {
     gap: 28px;
@@ -1064,7 +1177,8 @@ button:focus-visible {
   color: var(--text-dim);
 }
 .terminal-body {
-  padding: 22px 24px;
+  overflow-wrap: anywhere;
+  padding: 24px 28px;
   height: 260px;
   overflow-y: auto;
   font-family: "IBM Plex Mono", monospace;

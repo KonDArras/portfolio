@@ -1,6 +1,6 @@
 import type { ReactNode, CSSProperties, MouseEventHandler } from "react";
 
-export interface SectionHeadingProps { title: string; intro?: string; id?: string }
+export interface SectionHeadingProps { title: string; num?: string; intro?: string; id?: string }
 export interface PanelProps { title?: string; spotlight?: boolean; as?: string; className?: string; style?: CSSProperties; children?: ReactNode }
 export interface PanelGridProps { columns?: number; children?: ReactNode }
 export interface TagsProps { items: string[] }

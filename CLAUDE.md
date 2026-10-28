@@ -28,7 +28,7 @@ There are no tests or linters configured.
 
 "Schematic", extracted from `src/index.css` and the components. Start with `design-system/README.md` (the brand book). `tokens.json` holds every color, type style, spacing, radius and shadow value; `components/` has hand-written React versions of the site's UI pieces with `bundle.css`. The live version is the Design System artifact at https://claude.ai/artifact/WEiRSKh1S9UCgG1MaXYmRo.
 
-When changing styles, reuse the existing tokens (`--bg`, `--line`, `--live`, `--signal`, …) and keep `design-system/tokens.json` in sync with `src/index.css`. Known gap: `--line` is 2.47:1 on `--bg`, below 3:1 for control borders.
+When changing styles, reuse the existing tokens (`--bg`, `--line`, `--line-strong`, `--live`, `--signal`, …) and keep `design-system/tokens.json` in sync with `src/index.css`. `--line` (2.47:1 on `--bg`) is for dividers only; borders on controls use `--line-strong`.
 
 ## Subagents (`.claude/agents/`)
 

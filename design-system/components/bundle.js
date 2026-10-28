@@ -9,7 +9,7 @@
   }
 
   function SectionHeading(p) {
-    return h("div", { className: "section-head" }, h("h2", { id: p.id }, p.title), p.intro ? h("p", { className: "page-intro" }, p.intro) : null);
+    return h("div", { className: "section-head" }, h("h2", { id: p.id }, p.num ? h("span", { className: "num" }, p.num) : null, p.title), p.intro ? h("p", { className: "page-intro" }, p.intro) : null);
   }
   function Panel(p) {
     var spotlight = p.spotlight !== false;

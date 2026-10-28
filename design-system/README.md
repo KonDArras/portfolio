@@ -8,7 +8,7 @@ Extracted from `src/index.css` and the React components in `kondarras/portfolio`
 
 1. **Read like a system, not a brochure.** Sections are framed as ops artifacts: a deploy terminal ("In practice"), a monitoring dashboard ("Stack"), a history log ("Pipeline"). Reach for these metaphors before you reach for a generic card.
 2. **Dark, warm, green.** One theme only. The ground is `bg` (#0a120e), a near-black forest green. Text is `text` (#f4f1e6), a warm off-white, never pure white.
-3. **Square and hairlined.** No rounded cards. Structure comes from 1px `line` rules and from panels set in a grid whose `line` background shows through 1px gaps. Only circles get radius (`radius-round`).
+3. **Square and hairlined.** No rounded cards. Structure comes from 1px `line` rules and from opaque panels set in a grid whose `line` background shows through 1px gaps. Controls and labels take the stronger `line-strong` border. Only circles get radius (`radius-round`).
 4. **Motion that means something.** Pulses mean live, typing means in progress, count-ups mean measured. Everything respects `prefers-reduced-motion`.
 
 ## Content fundamentals
@@ -25,7 +25,8 @@ Extracted from `src/index.css` and the React components in `kondarras/portfolio`
 | --- | --- |
 | `bg` | Page ground. Also the ink on `live` fills. |
 | `panel-glass` | Translucent panel fill, always with `blur(16px) saturate(160%)`. |
-| `line` | Every hairline, grid gap and outline border. |
+| `line` | Hairlines: dividers, grid gaps, the blueprint grid. |
+| `line-strong` | Borders on controls and labels (tags, pills, chips, the CK mark). |
 | `text` / `text-dim` | Primary and secondary text. |
 | `live` | The accent and the "up" state: links, active nav, live dots, numbers, focus rings. |
 | `signal` | Structure: section labels, the role line, the terminal prompt. |
@@ -35,7 +36,7 @@ Rules:
 - `live` is the only color that fills a control (active FilterPill, hovered CV button). Its ink is `bg`.
 - `signal` labels structure; it never marks state.
 - All text colors pass 4.5:1 on `bg` and on `panel` (lowest: `signal` at 7.1:1 on `panel`).
-- **Known gap:** `line` is 2.47:1 on `bg`. It's fine for dividers but under the 3:1 a control border needs (FilterPill, Tags, the CK mark). Hover and active states switch to `live` or `signal`. Raise `line` if those controls need to stand on their border alone.
+- `line` is 2.47:1 on `bg`, so it is for dividers only. Any border that outlines a control uses `line-strong` (3.86:1 on `bg`, 3.36:1 on panels).
 
 ## Type
 
@@ -44,19 +45,20 @@ Two Google-hosted families, loaded in `index.html`:
 - **Space Grotesk** (`display`), 400/500/600/700: the name, the role, body and card titles.
 - **IBM Plex Mono** (`mono`), 400/500: everything that's data or chrome, including section labels, nav, tags, dates, numbers and terminal text.
 
-The html root is 18px, so the source's rem values come out larger than usual (1rem = 18px). The styles list the computed px values. Body line height is 1.55; terminal text is 1.7. The name is the only large type (`hero-name`, up to 90px, weight 700, -0.02em tracking). Section headings stay small (`section-label`, mono 18.9px, in `signal`).
+The html root is 18px, so the source's rem values come out larger than usual (1rem = 18px). The styles list the computed px values. Body line height is 1.55; terminal text is 1.7. Display type is tight: the name (`hero-name`, up to 101px, weight 700, line height 0.95, -0.04em) and page titles (`page-title`). Each home section opens with a numbered mono eyebrow (`section-label`, uppercase, in `signal`) and a one-line headline (`section-headline`, 31.5px, weight 500).
 
 ## Layout and spacing
 
 - **Blueprint grid:** a fixed 48px (`space-48`) line grid behind everything at 16% opacity. It drifts slowly and a soft radial mask follows the pointer.
 - **Page:** content max `content-max` (1180px), inset `gutter-left` (190px) on desktop to clear the fixed rail nav, and 24px under 760px.
-- **Sections:** `space-72` vertical padding, closed by a `line` rule.
-- **Panels:** 22–26px padding (`space-24`), set in a grid with 1px `line` gaps and a `line` outline.
-- Gaps step through 8 / 10 / 14 / 20 / 28 / 40 / 48.
+- **Sections:** `space-104` vertical padding (`space-72` under 760px), closed by a `line` rule.
+- **Panels:** `space-32` padding (`space-24` on mobile), set in a two-column grid (one column under 760px) with 1px `line` gaps and a `line` outline.
+- **Hero:** a low radial `live` glow sits behind the name; the stats row is set off by a `line` rule.
+- Gaps step through 8 / 10 / 14 / 20 / 28 / 32 / 40 / 48.
 
 ## Surfaces and depth
 
-Glass, not shadow. Panels are `panel-glass` with backdrop blur, a `glass-edge` 1px border and `shadow-glass` (a 1px top highlight). The terminal is the one surface that lifts off the page (`shadow-terminal`). On hover a panel gets a 180px `live-tint` spotlight that follows the cursor, and a `live` border.
+Tint, not shadow. Panels are `panel-glass` layered over `bg` (opaque, so grid gaps stay crisp), with a faint top-down highlight, a `glass-edge` 1px border and `shadow-glass` (a 1px top highlight). The terminal is the one surface that lifts off the page (`shadow-terminal`). On hover a panel gets a 180px `live-tint` spotlight that follows the cursor, and a `live` border.
 
 ## Motion
 
